@@ -2,23 +2,22 @@
 
 module calcu16_tb;
     reg clk;
+    wire LED0;
     wire LED1;
     wire LED2;
     wire LED3;
     wire LED4;
     wire LED5;
+    wire LED6;
+    wire LED7;
 
-    pro processor(clk,LED1,LED2,LED3,LED4,LED5);
+    pro processor(clk,LED0,LED1,LED2,LED3,LED4,LED5,LED6,LED7);
 
-    initial begin
-        //$dumpfile("dump.vcd");
+    initial begin     
         clk <= 1;
-        $monitor($time,"lights=%b %b %b %b %b",LED1,LED2,LED3,LED4,LED5);
-        
-        // Uncomment for debugging
-        // $dumpvars(0, processor);
+        $monitor($time,"lights=%b %b %b %b %b %b %b %b",LED0,LED1,LED2,LED3,LED4,LED5,LED6,LED7);
 
-         #1000000 // Simulation time
+         #1000000000 // Simulation time
          $finish;
     end
 

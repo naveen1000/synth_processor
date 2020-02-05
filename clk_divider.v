@@ -2,7 +2,7 @@ module clk_divider(
     input clk,
     output reg div_clk=0);
 
-localparam div_val=49999999;
+localparam div_val=10000000;//49999999
 integer counter=0;
 always @(posedge clk) begin
     

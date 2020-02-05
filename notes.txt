@@ -1,0 +1,12 @@
+            
+            // 4'b0011: // JMP
+            //     pc = immediate;
+            // 4'b0100: // JEQ
+            //     pc = (regArray[regSel1] == regArray[regSel2]) ? immediate : pc;
+            // 4'b0101: // STORE
+            //     memory[immediate + regArray[regSel2]] = regArray[regSel1];
+            // 4'b0110: // LOAD
+            //     regArray[regSel1] = memory[immediate + regArray[regSel2]];
+
+
+iverilog core_tb.v pro.v clk_divider.v core.v   
