@@ -8,5 +8,6 @@
             // 4'b0110: // LOAD
             //     regArray[regSel1] = memory[immediate + regArray[regSel2]];
 
-
+5'b11111: // ADDI
+                regArray[regSel1] = regArray[regSel2] + immediate;
 iverilog core_tb.v pro.v clk_divider.v core.v   

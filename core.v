@@ -1,5 +1,5 @@
 `timescale 1ns / 1ps 
-module calcu16 (
+module core (
   input clk,
   output LED0,
   output LED1,
@@ -33,14 +33,7 @@ module calcu16 (
             regArray[i] <= 0;
         
         $readmemb("program.bin", memory); // Load program
-        
-        // Uncomment for debugging
-        // $dumpvars(7, regArray[0], regArray[1], regArray[2], regArray[3], regArray[4], regArray[5],
-        //        regArray[6], regArray[7]);
 
-        // $monitor("r0 = %b\nr1 = %b\nr2 = %b\nr3 = %b\nr4 = %b\nr5 = %b\nr6 = %b\nr7 = %b\n\n",
-        //      regArray[0], regArray[1], regArray[2], regArray[3], regArray[4], regArray[5],
-        //       regArray[6], regArray[7]);
     end
 
     always @(posedge clk) begin
@@ -58,7 +51,7 @@ module calcu16 (
             5'b00000: // ADD
                 begin
                 regArray[regSel1] = regArray[regSel2] + regArray[regSel3];
-                $display("added");
+                //$display("added");
                 end
             5'b00001: // SUB
                 regArray[regSel1] = regArray[regSel2] - regArray[regSel3];
@@ -68,13 +61,32 @@ module calcu16 (
                 regArray[regSel1] = regArray[regSel2] | regArray[regSel3];
             5'b00100: // XOR
                 regArray[regSel1] = regArray[regSel2] ^ regArray[regSel3];
+            5'b00101: // INV
+                regArray[regSel1] = ~ regArray[regSel1];
+            5'b00110: // SHL
+                regArray[regSel1] = regArray[regSel1] << regArray[regSel2];
+             5'b00111: // MOV
+                regArray[regSel1] =  regArray[regSel2];
             5'b01000: // LDI
                 begin
                 regArray[regSel1] = immediate;
-                $display("loaded");
+                //$display("loaded");
                 end
-            5'b11111: // ADDI
-                regArray[regSel1] = regArray[regSel2] + immediate;
+            5'b01010: // INC
+                begin
+                regArray[regSel1] = regArray[regSel1] + 8'h01;
+                //$display("INC");
+                end
+            5'b01011: // DEC
+                regArray[regSel1] = regArray[regSel1] - 8'b00000001;
+            5'b01110: // JNZ
+                pc = (regArray[regSel1] == 0) ? pc : immediate;
+            5'b01111: // JMP
+                 pc = immediate;
+            5'b10000: // LDM
+                regArray[regSel1] = memory[immediate];
+            5'b10001: // STM
+                 memory[immediate] = regArray[regSel1];
             
         endcase
     end

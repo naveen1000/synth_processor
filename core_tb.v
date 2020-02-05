@@ -17,7 +17,7 @@ module calcu16_tb;
         clk <= 1;
         $monitor($time,"lights=%b %b %b %b %b %b %b %b",LED0,LED1,LED2,LED3,LED4,LED5,LED6,LED7);
 
-         #1000000000 // Simulation time
+         #1000 // Simulation time
          $finish;
     end
 
