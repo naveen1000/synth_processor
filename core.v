@@ -87,6 +87,8 @@ module core (
                 regArray[regSel1] = memory[immediate];
             5'b10001: // STM
                  memory[immediate] = regArray[regSel1];
+            5'b10010: // SHR
+                regArray[regSel1] = regArray[regSel1] >> regArray[regSel2];
             
         endcase
     end
