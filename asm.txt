@@ -1,0 +1,4 @@
+LDI R0 1
+LDI R1 1
+INC R0
+JMP 0 2
